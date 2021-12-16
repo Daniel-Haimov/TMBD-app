@@ -3,15 +3,24 @@ package com.hw.tmbd_test;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.DefaultItemAnimator;
 import androidx.recyclerview.widget.GridLayoutManager;
-import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.os.AsyncTask;
 import android.os.Bundle;
-import android.view.View;
 import android.widget.Toast;
 
 import com.google.gson.Gson;
 
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.net.HttpURLConnection;
+import java.net.MalformedURLException;
+import java.net.URL;
 import java.util.ArrayList;
 
 public class Activity_Main extends AppCompatActivity {
@@ -20,28 +29,32 @@ public class Activity_Main extends AppCompatActivity {
     private Bundle bundle;
     private MoviesDB moviesDB;
 
+    private final String DB_URL = "https://api.themoviedb.org/3/movie/popular?api_key=ed4e70c32a0e3fa40d56ae5d92067d20";
+    private final String RESULT_KEY = "results";
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
+        this.bundle = getIntent().getBundleExtra("BUNDLE_KEY");
+        moviesDB = new MoviesDB();
         main_LST_movies = findViewById(R.id.main_LST_movies);
 
-        this.bundle = getIntent().getBundleExtra("BUNDLE_KEY");
+//        firstVersion();
+        secondVersion();
 
-        moviesDB = new Gson().fromJson(bundle.getString("MovieDB"), MoviesDB.class);
 
+    }
+
+    private void adapter() {
         ArrayList<Movie> movies = moviesDB.getMovies();
-
         Adapter_Movie adapter_movie = new Adapter_Movie(this, movies);
-
 
         // Grid
         main_LST_movies.setLayoutManager(new GridLayoutManager(this, 2));
 
         // Vertically
         //main_LST_movies.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false));
-
 
         main_LST_movies.setHasFixedSize(true);
         main_LST_movies.setItemAnimator(new DefaultItemAnimator());
@@ -50,4 +63,80 @@ public class Activity_Main extends AppCompatActivity {
         adapter_movie.setMovieItemClickListener((movie, position) -> Toast.makeText(Activity_Main.this, movie.getTitle(), Toast.LENGTH_SHORT).show());
 
     }
+
+    private void firstVersion() {
+        moviesDB = new Gson().fromJson(bundle.getString("MovieDB"), MoviesDB.class);
+        adapter();
+    }
+
+    private void secondVersion() {
+        GetData getData = new GetData();
+        getData.execute();
+    }
+
+    public class GetData extends AsyncTask<String, String, String> {
+
+        @Override
+        protected String doInBackground(String... strings) {
+            StringBuilder current = new StringBuilder();
+            try {
+                URL url;
+                HttpURLConnection urlConnection = null;
+
+                try {
+                    url = new URL(DB_URL);
+                    urlConnection = (HttpURLConnection) url.openConnection();
+
+                    InputStream inputStream = urlConnection.getInputStream();
+                    InputStreamReader inputStreamReader = new InputStreamReader(inputStream);
+
+                    int data = inputStreamReader.read();
+                    while (data != -1){
+                        current.append((char) data);
+                        data = inputStreamReader.read();
+                    }
+
+                    return current.toString();
+
+                } catch (MalformedURLException e) {
+                    e.printStackTrace();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                } finally {
+                    if (urlConnection != null){
+                        urlConnection.disconnect();
+                    }
+                }
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+
+            return current.toString();
+        }
+
+        @Override
+        protected void onPostExecute(String s) {
+            try{
+                JSONObject jsonObject = new JSONObject(s);
+                JSONArray jsonArray = jsonObject.getJSONArray(RESULT_KEY);
+                for (int i = 0; i < jsonArray.length(); i++) {
+                    JSONObject jsonMovie = jsonArray.getJSONObject(i);
+                    moviesDB.getMovies().add(new Gson().fromJson(String.valueOf(jsonMovie), Movie.class));
+                }
+
+//                moviesDB.setMovies(new Gson().fromJson(String.valueOf(jsonArray), moviesDB.getMovies().getClass()));
+
+
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+
+//            adapter();
+
+            adapter();
+        }
+
+    }
+
+
 }
