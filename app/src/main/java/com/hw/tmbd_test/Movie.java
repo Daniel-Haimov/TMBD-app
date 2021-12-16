@@ -19,6 +19,6 @@ public class Movie {
     private String              release_date                                ;
     private String              title                                       ;
     private boolean             video                                       ;
-    private double              vote_average                                ;
+    private float               vote_average                                ;
     private int                 vote_count                                  ;
 }
