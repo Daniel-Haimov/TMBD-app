@@ -5,6 +5,7 @@ import androidx.recyclerview.widget.DefaultItemAnimator;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.annotation.SuppressLint;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.widget.Toast;
@@ -29,7 +30,11 @@ public class Activity_Main extends AppCompatActivity {
     private Bundle bundle;
     private MoviesDB moviesDB;
 
-    private final String DB_URL = "https://api.themoviedb.org/3/movie/popular?api_key=ed4e70c32a0e3fa40d56ae5d92067d20";
+
+    private final String BASE_DB_URL = "https://api.themoviedb.org/3/movie/popular?api_key=%s&language=%s&page=%d";
+    private final String API_KEY = "ed4e70c32a0e3fa40d56ae5d92067d20";
+    private final String LANGUAGE_KEY = "he-IL";
+    private int page = 1;
     private final String RESULT_KEY = "results";
 
     @Override
@@ -40,9 +45,8 @@ public class Activity_Main extends AppCompatActivity {
         moviesDB = new MoviesDB();
         main_LST_movies = findViewById(R.id.main_LST_movies);
 
-//        firstVersion();
-        secondVersion();
-
+        firstVersion();
+//        secondVersion();
 
     }
 
@@ -61,6 +65,12 @@ public class Activity_Main extends AppCompatActivity {
         main_LST_movies.setAdapter(adapter_movie);
 
         adapter_movie.setMovieItemClickListener((movie, position) -> Toast.makeText(Activity_Main.this, movie.getTitle(), Toast.LENGTH_SHORT).show());
+        adapter_movie.setLoadPage((page) -> {
+            this.page = page;
+            if(page <= 500){
+                secondVersion();
+            }
+        });
 
     }
 
@@ -74,8 +84,14 @@ public class Activity_Main extends AppCompatActivity {
         getData.execute();
     }
 
+    @SuppressLint("StaticFieldLeak")
     public class GetData extends AsyncTask<String, String, String> {
 
+        public GetData() {
+            super();
+        }
+
+        @SuppressLint("DefaultLocale")
         @Override
         protected String doInBackground(String... strings) {
             StringBuilder current = new StringBuilder();
@@ -84,7 +100,7 @@ public class Activity_Main extends AppCompatActivity {
                 HttpURLConnection urlConnection = null;
 
                 try {
-                    url = new URL(DB_URL);
+                    url = new URL(String.format(BASE_DB_URL,API_KEY, LANGUAGE_KEY, page));
                     urlConnection = (HttpURLConnection) url.openConnection();
 
                     InputStream inputStream = urlConnection.getInputStream();
@@ -123,20 +139,15 @@ public class Activity_Main extends AppCompatActivity {
                     JSONObject jsonMovie = jsonArray.getJSONObject(i);
                     moviesDB.getMovies().add(new Gson().fromJson(String.valueOf(jsonMovie), Movie.class));
                 }
-
 //                moviesDB.setMovies(new Gson().fromJson(String.valueOf(jsonArray), moviesDB.getMovies().getClass()));
-
-
             } catch (JSONException e) {
                 e.printStackTrace();
             }
-
 //            adapter();
-
-            adapter();
         }
 
     }
+
 
 
 }

@@ -22,6 +22,8 @@ public class Adapter_Movie extends RecyclerView.Adapter<RecyclerView.ViewHolder>
     private final Context context;
     private final ArrayList<Movie> movies;
     private MovieItemClickListener movieItemClickListener;
+    private LoadPage loadPage;
+    private int page = 1;
 
     public Adapter_Movie(Context context, ArrayList<Movie> movies) {
         this.context = context;
@@ -30,6 +32,10 @@ public class Adapter_Movie extends RecyclerView.Adapter<RecyclerView.ViewHolder>
 
     public void setMovieItemClickListener(MovieItemClickListener movieItemClickListener) {
         this.movieItemClickListener = movieItemClickListener;
+    }
+
+    public void setLoadPage(LoadPage loadPage) {
+        this.loadPage = loadPage;
     }
 
     @NonNull
@@ -43,7 +49,7 @@ public class Adapter_Movie extends RecyclerView.Adapter<RecyclerView.ViewHolder>
     @Override
     public void onBindViewHolder(RecyclerView.ViewHolder holder, final int position) {
         MovieViewHolder movieViewHolder = (MovieViewHolder) holder;
-        String urlSrc = "https://www.themoviedb.org/t/p/original";
+        String urlSrc = "https://www.themoviedb.org/t/p/w500";
         Movie movie = getItem(position);
         movieViewHolder.movie_LBL_title.setText(movie.getTitle());
         movieViewHolder.movie_LBL_overview.setText(movie.getOverview());
@@ -56,6 +62,10 @@ public class Adapter_Movie extends RecyclerView.Adapter<RecyclerView.ViewHolder>
         float rating = movie.getVote_average();
         rating /= 2;
         movieViewHolder.movie_RTNG_stars.setRating(rating);
+
+        if (movies.size() - position > 5){
+            loadPage.loadPage(++page);
+        }
     }
 
     @Override
@@ -69,6 +79,10 @@ public class Adapter_Movie extends RecyclerView.Adapter<RecyclerView.ViewHolder>
 
     public interface MovieItemClickListener {
         void movieItemClicked(Movie movie, int position);
+    }
+
+    public interface LoadPage {
+        void loadPage(int page);
     }
 
     public class MovieViewHolder extends RecyclerView.ViewHolder {
