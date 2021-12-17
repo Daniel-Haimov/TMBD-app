@@ -1,0 +1,130 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    app:cardCornerRadius="20dp"
+    android:elevation="8dp"
+    app:cardElevation="8dp"
+    android:layout_margin="10dp"
+    tools:context=".Activity_Main">
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/movieActivity_BTN_back"
+        android:layout_width="wrap_content"
+        android:layout_height="50dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginBottom="8dp"
+        android:text="@string/back" />
+
+    <androidx.appcompat.widget.LinearLayoutCompat
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@id/movieActivity_BTN_back"
+        android:orientation="vertical">
+
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical" >
+
+                <androidx.appcompat.widget.AppCompatImageView
+                    android:id="@+id/movieActivity_IMG_image"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:scaleType="centerCrop"
+                    android:layout_marginHorizontal="8dp"
+                    android:src="@drawable/ic_launcher_background" />
+
+                <com.google.android.material.textview.MaterialTextView
+                    android:id="@+id/movieActivity_LBL_title"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="8dp"
+                    android:layout_marginEnd="8dp"
+                    android:ellipsize="end"
+                    android:gravity="bottom"
+                    android:maxLines="2"
+                    android:minLines="2"
+                    android:text="MOVIE_TITLE"
+                    android:textSize="24sp"
+                    tools:ignore="HardcodedText" />
+
+                <com.google.android.material.textview.MaterialTextView
+                    android:id="@+id/movieActivity_LBL_overview"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="8dp"
+                    android:layout_marginEnd="8dp"
+                    android:ellipsize="end"
+                    android:minLines="2"
+                    android:text="MOVIE_OVERVIEW"
+                    tools:ignore="HardcodedText"
+                    android:textSize="14sp" />
+
+                <com.google.android.material.textview.MaterialTextView
+                    android:id="@+id/movieActivity_LBL_releaseDate"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="8dp"
+                    android:layout_marginEnd="8dp"
+                    android:ellipsize="end"
+                    android:maxLines="1"
+                    android:text="YYYY-MM-DD"
+                    tools:ignore="HardcodedText"
+                    android:textSize="14sp" />
+
+                <androidx.appcompat.widget.LinearLayoutCompat
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:padding="8dp">
+
+                    <androidx.appcompat.widget.AppCompatRatingBar
+                        android:id="@+id/movieActivity_RTNG_stars"
+                        style="@style/Widget.AppCompat.RatingBar.Small"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="bottom"
+                        android:progressTint="#FFFF00"
+                        android:rating="3.5"
+                        android:secondaryProgressTint="#AEBC861C" />
+
+                    <com.google.android.material.textview.MaterialTextView
+                        android:id="@+id/movieActivity_LBL_votes"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_marginStart="8dp"
+                        android:layout_marginEnd="8dp"
+                        android:layout_weight="1"
+                        android:ellipsize="end"
+                        android:gravity="center_vertical"
+                        android:maxLines="1"
+                        android:text="votes: "
+                        tools:ignore="HardcodedText"
+                        android:textSize="14sp" />
+
+                </androidx.appcompat.widget.LinearLayoutCompat>
+
+                <androidx.appcompat.widget.AppCompatImageView
+                    android:id="@+id/movieActivity_IMG_backdrop"
+                    android:layout_width="match_parent"
+                    android:layout_height="250dp"
+                    android:scaleType="centerCrop"
+                    android:src="@drawable/ic_launcher_background" />
+
+            </LinearLayout>
+        </ScrollView>
+
+
+    </androidx.appcompat.widget.LinearLayoutCompat>
+
+</RelativeLayout>

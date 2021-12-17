@@ -1,6 +1,5 @@
 package com.hw.tmbd_test;
 
-import android.app.Activity;
 import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -17,15 +16,16 @@ import com.google.android.material.textview.MaterialTextView;
 import java.util.ArrayList;
 
 
-public class Adapter_Movie extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
+public class Adapter_Movie_List extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
     private final Context context;
     private final ArrayList<Movie> movies;
+    private final String SRC_URL = "https://www.themoviedb.org/t/p/w500";
     private MovieItemClickListener movieItemClickListener;
     private LoadPage loadPage;
     private int page = 1;
 
-    public Adapter_Movie(Context context, ArrayList<Movie> movies) {
+    public Adapter_Movie_List(Context context, ArrayList<Movie> movies) {
         this.context = context;
         this.movies = movies;
     }
@@ -49,19 +49,16 @@ public class Adapter_Movie extends RecyclerView.Adapter<RecyclerView.ViewHolder>
     @Override
     public void onBindViewHolder(RecyclerView.ViewHolder holder, final int position) {
         MovieViewHolder movieViewHolder = (MovieViewHolder) holder;
-        String urlSrc = "https://www.themoviedb.org/t/p/w500";
         Movie movie = getItem(position);
-        movieViewHolder.movie_LBL_title.setText(movie.getTitle());
-        movieViewHolder.movie_LBL_overview.setText(movie.getOverview());
-        movieViewHolder.movie_LBL_duration.setText(movie.getRelease_date());
+        movieViewHolder.movieList_LBL_title.setText(movie.getTitle());
+        movieViewHolder.movieList_LBL_overview.setText(movie.getOverview());
+        movieViewHolder.movieList_LBL_duration.setText(movie.getRelease_date());
 
         Glide
                 .with(context)
-                .load(urlSrc + movie.getPoster_path())
-                .into(movieViewHolder.movie_IMG_image);
-        float rating = movie.getVote_average();
-        rating /= 2;
-        movieViewHolder.movie_RTNG_stars.setRating(rating);
+                .load(SRC_URL + movie.getPoster_path())
+                .into(movieViewHolder.movieList_IMG_image);
+        movieViewHolder.movieList_RTNG_stars.setRating(movie.getVote_average() / 2);
 
         if (movies.size() - position > 5){
             loadPage.loadPage(++page);
@@ -87,19 +84,20 @@ public class Adapter_Movie extends RecyclerView.Adapter<RecyclerView.ViewHolder>
 
     public class MovieViewHolder extends RecyclerView.ViewHolder {
 
-        public AppCompatImageView movie_IMG_image;
-        public MaterialTextView movie_LBL_title;
-        public MaterialTextView movie_LBL_overview;
-        public MaterialTextView movie_LBL_duration;
-        public AppCompatRatingBar movie_RTNG_stars;
+        public AppCompatImageView movieList_IMG_image;
+        public MaterialTextView movieList_LBL_title;
+        public MaterialTextView movieList_LBL_overview;
+        public MaterialTextView movieList_LBL_duration;
+        public AppCompatRatingBar movieList_RTNG_stars;
+
 
         public MovieViewHolder(final View itemView) {
             super(itemView);
-            this.movie_IMG_image = itemView.findViewById(R.id.movie_IMG_image);
-            this.movie_LBL_title = itemView.findViewById(R.id.movie_LBL_title);
-            this.movie_LBL_overview = itemView.findViewById(R.id.movie_LBL_overview);
-            this.movie_LBL_duration = itemView.findViewById(R.id.movie_LBL_duration);
-            this.movie_RTNG_stars = itemView.findViewById(R.id.movie_RTNG_stars);
+            this.movieList_IMG_image = itemView.findViewById(R.id.movieList_IMG_image);
+            this.movieList_LBL_title = itemView.findViewById(R.id.movieList_LBL_title);
+            this.movieList_LBL_overview = itemView.findViewById(R.id.movieList_LBL_overview);
+            this.movieList_LBL_duration = itemView.findViewById(R.id.movieList_LBL_duration);
+            this.movieList_RTNG_stars = itemView.findViewById(R.id.movieList_RTNG_stars);
 
             itemView.setOnClickListener(v ->
                     movieItemClickListener

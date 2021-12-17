@@ -6,9 +6,9 @@ import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.annotation.SuppressLint;
+import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
-import android.widget.Toast;
 
 import com.google.gson.Gson;
 
@@ -23,8 +23,10 @@ import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.ArrayList;
+import java.util.Locale;
 
 public class Activity_Main extends AppCompatActivity {
+    public static final String MOVIE_DB_KEY = "MOVIE_DB_KEY";
 
     private RecyclerView main_LST_movies;
     private Bundle bundle;
@@ -33,7 +35,7 @@ public class Activity_Main extends AppCompatActivity {
 
     private final String BASE_DB_URL = "https://api.themoviedb.org/3/movie/popular?api_key=%s&language=%s&page=%d";
     private final String API_KEY = "ed4e70c32a0e3fa40d56ae5d92067d20";
-    private final String LANGUAGE_KEY = "he-IL";
+    private final String LANGUAGE_KEY = Locale.getDefault().toLanguageTag();
     private int page = 1;
     private final String RESULT_KEY = "results";
 
@@ -41,7 +43,7 @@ public class Activity_Main extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        this.bundle = getIntent().getBundleExtra("BUNDLE_KEY");
+        this.bundle = getIntent().getBundleExtra(Activity_Splash.BUNDLE_KEY);
         moviesDB = new MoviesDB();
         main_LST_movies = findViewById(R.id.main_LST_movies);
 
@@ -52,7 +54,7 @@ public class Activity_Main extends AppCompatActivity {
 
     private void adapter() {
         ArrayList<Movie> movies = moviesDB.getMovies();
-        Adapter_Movie adapter_movie = new Adapter_Movie(this, movies);
+        Adapter_Movie_List adapter_movieList = new Adapter_Movie_List(this, movies);
 
         // Grid
         main_LST_movies.setLayoutManager(new GridLayoutManager(this, 2));
@@ -62,10 +64,12 @@ public class Activity_Main extends AppCompatActivity {
 
         main_LST_movies.setHasFixedSize(true);
         main_LST_movies.setItemAnimator(new DefaultItemAnimator());
-        main_LST_movies.setAdapter(adapter_movie);
+        main_LST_movies.setAdapter(adapter_movieList);
 
-        adapter_movie.setMovieItemClickListener((movie, position) -> Toast.makeText(Activity_Main.this, movie.getTitle(), Toast.LENGTH_SHORT).show());
-        adapter_movie.setLoadPage((page) -> {
+        adapter_movieList.setMovieItemClickListener((movie, position) -> {
+            openMovieActivity(movie);
+        });
+        adapter_movieList.setLoadPage((page) -> {
             this.page = page;
             if(page <= 500){
                 secondVersion();
@@ -74,8 +78,18 @@ public class Activity_Main extends AppCompatActivity {
 
     }
 
+    private void openMovieActivity(Movie movie) {
+        Intent intent = new Intent(this, Activity_Movie.class);
+
+        bundle.putString(Activity_Movie.MOVIE_KEY, new Gson().toJson(movie));
+
+        intent.putExtra(Activity_Splash.BUNDLE_KEY, bundle);
+        startActivity(intent);
+
+    }
+
     private void firstVersion() {
-        moviesDB = new Gson().fromJson(bundle.getString("MovieDB"), MoviesDB.class);
+        moviesDB = new Gson().fromJson(bundle.getString(MOVIE_DB_KEY), MoviesDB.class);
         adapter();
     }
 

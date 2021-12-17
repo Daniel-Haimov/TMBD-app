@@ -17,14 +17,14 @@
         android:orientation="vertical">
 
         <androidx.appcompat.widget.AppCompatImageView
-            android:id="@+id/movie_IMG_image"
+            android:id="@+id/movieList_IMG_image"
             android:layout_width="match_parent"
             android:layout_height="250dp"
             android:scaleType="centerCrop"
             android:src="@drawable/ic_launcher_background" />
 
         <com.google.android.material.textview.MaterialTextView
-            android:id="@+id/movie_LBL_title"
+            android:id="@+id/movieList_LBL_title"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginStart="8dp"
@@ -37,7 +37,7 @@
             android:textSize="18sp" />
 
         <com.google.android.material.textview.MaterialTextView
-            android:id="@+id/movie_LBL_overview"
+            android:id="@+id/movieList_LBL_overview"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginStart="8dp"
@@ -50,7 +50,7 @@
             android:textSize="14sp" />
 
         <com.google.android.material.textview.MaterialTextView
-            android:id="@+id/movie_LBL_duration"
+            android:id="@+id/movieList_LBL_duration"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginStart="8dp"
@@ -67,7 +67,7 @@
             android:padding="8dp">
 
             <androidx.appcompat.widget.AppCompatRatingBar
-                android:id="@+id/movie_RTNG_stars"
+                android:id="@+id/movieList_RTNG_stars"
                 style="@style/Widget.AppCompat.RatingBar.Small"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"

@@ -15,10 +15,13 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.TMBD_test">
         <activity
+            android:name=".Activity_Movie"
+            android:exported="false" />
+        <activity
             android:name=".Activity_Main"
             android:exported="false" />
         <activity
-            android:name=".Activity_Init"
+            android:name=".Activity_Splash"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
