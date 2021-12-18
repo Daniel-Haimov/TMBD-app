@@ -13,12 +13,9 @@ import com.google.gson.Gson;
 
 public class Activity_Movie extends AppCompatActivity {
 
-    public static final String MOVIE_KEY = "MOVIE_KEY";
 
     private Bundle bundle;
     private Movie movie;
-
-    private final String SRC_URL = "https://www.themoviedb.org/t/p/w500";
 
     private AppCompatImageView  movie_IMG_image         ;
     private MaterialTextView    movie_LBL_title         ;
@@ -36,8 +33,8 @@ public class Activity_Movie extends AppCompatActivity {
         setContentView(R.layout.activity_movie);
 
 
-        this.bundle = getIntent().getBundleExtra(Activity_Splash.BUNDLE_KEY);
-        this.movie = new Gson().fromJson(bundle.getString(MOVIE_KEY), Movie.class);
+        this.bundle = getIntent().getBundleExtra(getString(R.string.bundle_key));
+        this.movie = new Gson().fromJson(bundle.getString(getString(R.string.movie_key)), Movie.class);
 
         findViews();
 
@@ -61,17 +58,17 @@ public class Activity_Movie extends AppCompatActivity {
     private void showMovie() {
         Glide
                 .with(this)
-                .load(SRC_URL + movie.getPoster_path())
+                .load(getString(R.string.src_url) + movie.getPoster_path())
                 .into(movie_IMG_image);
-        this.movie_LBL_title         .setText(movie.getTitle());
-        this.movie_LBL_overview      .setText(movie.getOverview());
-        this.movie_LBL_releaseDate   .setText(movie.getRelease_date());
-        this.movie_RTNG_stars        .setRating(movie.getVote_average() / 2);
+        movie_LBL_title         .setText(movie.getTitle());
+        movie_LBL_overview      .setText(movie.getOverview());
+        movie_LBL_releaseDate   .setText(movie.getRelease_date());
+        movie_RTNG_stars        .setRating(movie.getVote_average() / 2);
         String votes = getString(R.string.vote) + movie.getVote_count();
-        this.movie_LBL_votes         .setText(votes);
+        movie_LBL_votes         .setText(votes);
         Glide
                 .with(this)
-                .load(SRC_URL + movie.getBackdrop_path())
+                .load(getString(R.string.src_url) + movie.getBackdrop_path())
                 .into(movie_IMG_backdrop);
         movie_BTN_back.setOnClickListener(v -> onBackPressed());
     }

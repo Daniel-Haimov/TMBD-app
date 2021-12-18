@@ -1,8 +1,22 @@
 <resources>
-    <string name="app_name" translatable="false">TMBD_test</string>
-    <string name="votes" translatable="false">votes</string>
+    <string name="app_name" translatable="false">TMBD</string>
+    <string name="base_url" translatable="false">https://api.themoviedb.org/3/movie/popular?api_key=%s&amp;language=%s&amp;page=%d</string>
+    <string name="language_flag" translatable="false">language=%s</string>
+    <string name="page_flag" translatable="false">page=%d</string>
+    <string name="api_key" translatable="false">ed4e70c32a0e3fa40d56ae5d92067d20</string>
+    <string name="result_key" translatable="false">results</string>
+    <string name="src_url" translatable="false">https://www.themoviedb.org/t/p/w500</string>
     <string name="back">Back</string>
     <string name="test" translatable="false">test</string>
-    <string name="vote">votes:</string>
+    <string name="vote">votes: </string>
 
+<!--    ADmob-->
+<!--    <string name="banner_ad_unit_id" translatable="false">ca-app-pub-3940256099942544/6300978111</string>-->
+    <string name="banner_ad_unit_id" translatable="false">ca-app-pub-8460132572745092~1864671500</string>
+    <string name="admob_app_id" translatable="false">ca-app-pub-8460132572745092~1864671500</string>
+
+
+    <!--    KEYS-->
+    <string name="bundle_key" translatable="false">BUNDLE_KEY</string>
+    <string name="movie_key" translatable="false">MOVIE_KEY</string>
 </resources>

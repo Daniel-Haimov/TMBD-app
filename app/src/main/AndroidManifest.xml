@@ -14,6 +14,11 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.TMBD_test">
+
+        <meta-data
+            android:name="com.google.android.gms.ads.TMBD"
+            android:value="@string/admob_app_id"/>
+
         <activity
             android:name=".Activity_Movie"
             android:exported="false" />

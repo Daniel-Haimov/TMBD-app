@@ -10,6 +10,7 @@ import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
 
+
 import com.google.gson.Gson;
 
 import org.json.JSONArray;
@@ -20,7 +21,6 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
-import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.Locale;
@@ -33,23 +33,36 @@ public class Activity_Main extends AppCompatActivity {
     private MoviesDB moviesDB;
 
 
-    private final String BASE_DB_URL = "https://api.themoviedb.org/3/movie/popular?api_key=%s&language=%s&page=%d";
-    private final String API_KEY = "ed4e70c32a0e3fa40d56ae5d92067d20";
     private final String LANGUAGE_KEY = Locale.getDefault().toLanguageTag();
     private int page = 1;
-    private final String RESULT_KEY = "results";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        this.bundle = getIntent().getBundleExtra(Activity_Splash.BUNDLE_KEY);
+        this.bundle = getIntent().getBundleExtra(getString(R.string.bundle_key));
+
+//        MobileAds.initialize(this, initializationStatus -> {
+//            initADS();
+//        });
+
+
         moviesDB = new MoviesDB();
         main_LST_movies = findViewById(R.id.main_LST_movies);
 
         firstVersion();
 //        secondVersion();
 
+    }
+
+    private void initADS() {
+
+
+//        AdManagerAdView adView = new AdManagerAdView(this);
+//
+//        adView.setAdSizes(AdSize.BANNER);
+//
+//        adView.setAdUnitId("/6499/example/banner");
     }
 
     private void adapter() {
@@ -81,9 +94,9 @@ public class Activity_Main extends AppCompatActivity {
     private void openMovieActivity(Movie movie) {
         Intent intent = new Intent(this, Activity_Movie.class);
 
-        bundle.putString(Activity_Movie.MOVIE_KEY, new Gson().toJson(movie));
+        bundle.putString(getString(R.string.movie_key), new Gson().toJson(movie));
 
-        intent.putExtra(Activity_Splash.BUNDLE_KEY, bundle);
+        intent.putExtra(getString(R.string.bundle_key), bundle);
         startActivity(intent);
 
     }
@@ -105,7 +118,6 @@ public class Activity_Main extends AppCompatActivity {
             super();
         }
 
-        @SuppressLint("DefaultLocale")
         @Override
         protected String doInBackground(String... strings) {
             StringBuilder current = new StringBuilder();
@@ -114,11 +126,12 @@ public class Activity_Main extends AppCompatActivity {
                 HttpURLConnection urlConnection = null;
 
                 try {
-                    url = new URL(String.format(BASE_DB_URL,API_KEY, LANGUAGE_KEY, page));
+                    url = new URL(String.format(getString(R.string.base_url),getString(R.string.api_key), LANGUAGE_KEY, page));
                     urlConnection = (HttpURLConnection) url.openConnection();
 
                     InputStream inputStream = urlConnection.getInputStream();
                     InputStreamReader inputStreamReader = new InputStreamReader(inputStream);
+
 
                     int data = inputStreamReader.read();
                     while (data != -1){
@@ -128,8 +141,6 @@ public class Activity_Main extends AppCompatActivity {
 
                     return current.toString();
 
-                } catch (MalformedURLException e) {
-                    e.printStackTrace();
                 } catch (IOException e) {
                     e.printStackTrace();
                 } finally {
@@ -148,7 +159,7 @@ public class Activity_Main extends AppCompatActivity {
         protected void onPostExecute(String s) {
             try{
                 JSONObject jsonObject = new JSONObject(s);
-                JSONArray jsonArray = jsonObject.getJSONArray(RESULT_KEY);
+                JSONArray jsonArray = jsonObject.getJSONArray(getString(R.string.result_key));
                 for (int i = 0; i < jsonArray.length(); i++) {
                     JSONObject jsonMovie = jsonArray.getJSONObject(i);
                     moviesDB.getMovies().add(new Gson().fromJson(String.valueOf(jsonMovie), Movie.class));
