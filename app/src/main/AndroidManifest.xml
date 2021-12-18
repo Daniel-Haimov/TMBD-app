@@ -16,7 +16,7 @@
         android:theme="@style/Theme.TMBD_test">
 
         <meta-data
-            android:name="com.google.android.gms.ads.TMBD"
+            android:name="com.google.android.gms.ads.APPLICATION_ID"
             android:value="@string/admob_app_id"/>
 
         <activity

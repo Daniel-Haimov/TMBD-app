@@ -11,6 +11,11 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 
 
+import com.google.android.gms.ads.AdRequest;
+import com.google.android.gms.ads.AdSize;
+import com.google.android.gms.ads.AdView;
+import com.google.android.gms.ads.MobileAds;
+import com.google.android.gms.ads.admanager.AdManagerAdView;
 import com.google.gson.Gson;
 
 import org.json.JSONArray;
@@ -26,7 +31,6 @@ import java.util.ArrayList;
 import java.util.Locale;
 
 public class Activity_Main extends AppCompatActivity {
-    public static final String MOVIE_DB_KEY = "MOVIE_DB_KEY";
 
     private RecyclerView main_LST_movies;
     private Bundle bundle;
@@ -46,6 +50,7 @@ public class Activity_Main extends AppCompatActivity {
 //            initADS();
 //        });
 
+        initADS();
 
         moviesDB = new MoviesDB();
         main_LST_movies = findViewById(R.id.main_LST_movies);
@@ -56,13 +61,13 @@ public class Activity_Main extends AppCompatActivity {
     }
 
     private void initADS() {
-
-
 //        AdManagerAdView adView = new AdManagerAdView(this);
-//
 //        adView.setAdSizes(AdSize.BANNER);
-//
 //        adView.setAdUnitId("/6499/example/banner");
+
+        AdView mAdView = findViewById(R.id.adView);
+        AdRequest adRequest = new AdRequest.Builder().build();
+        mAdView.loadAd(adRequest);
     }
 
     private void adapter() {
@@ -102,7 +107,7 @@ public class Activity_Main extends AppCompatActivity {
     }
 
     private void firstVersion() {
-        moviesDB = new Gson().fromJson(bundle.getString(MOVIE_DB_KEY), MoviesDB.class);
+        moviesDB = new Gson().fromJson(bundle.getString(getString(R.string.movieDB_key)), MoviesDB.class);
         adapter();
     }
 

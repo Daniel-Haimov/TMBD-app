@@ -13,7 +13,7 @@ import java.util.Locale;
 public class Activity_Splash extends AppCompatActivity {
 
 
-    private final String LANGUAGE_KEY = Locale.getDefault().toLanguageTag();
+    private final String LANGUAGE_KEY = Locale.getDefault().toLanguageTag(); //en-US // he-IL
     private int page = 1;
 
 
@@ -38,7 +38,7 @@ public class Activity_Splash extends AppCompatActivity {
         Intent intent = new Intent(this, Activity_Main.class);
         Bundle bundle = new Bundle();
 
-        bundle.putString(Activity_Main.MOVIE_DB_KEY, new Gson().toJson(moviesDB));
+        bundle.putString(getString(R.string.movieDB_key), new Gson().toJson(moviesDB));
 
         intent.putExtra(getString(R.string.bundle_key), bundle);
         startActivity(intent);
