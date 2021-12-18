@@ -1,4 +1,4 @@
-package com.hw.tmbd_test;
+package com.hw.tmbd_test.adapters;
 
 import android.content.Context;
 import android.view.LayoutInflater;
@@ -12,6 +12,8 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
 import com.google.android.material.textview.MaterialTextView;
+import com.hw.tmbd_test.R;
+import com.hw.tmbd_test.data.Movie;
 
 import java.util.ArrayList;
 
@@ -20,7 +22,6 @@ public class Adapter_Movie_List extends RecyclerView.Adapter<RecyclerView.ViewHo
 
     private final Context context;
     private final ArrayList<Movie> movies;
-    private final String SRC_URL = "https://www.themoviedb.org/t/p/w500";
     private MovieItemClickListener movieItemClickListener;
     private LoadPage loadPage;
     private int page = 1;
@@ -56,7 +57,7 @@ public class Adapter_Movie_List extends RecyclerView.Adapter<RecyclerView.ViewHo
 
         Glide
                 .with(context)
-                .load(SRC_URL + movie.getPoster_path())
+                .load(context.getString(R.string.src_url) + movie.getPoster_path())
                 .into(movieViewHolder.movieList_IMG_image);
         movieViewHolder.movieList_RTNG_stars.setRating(movie.getVote_average() / 2);
 

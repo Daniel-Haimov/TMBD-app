@@ -1,6 +1,4 @@
-package com.hw.tmbd_test;
-
-import java.util.ArrayList;
+package com.hw.tmbd_test.data;
 
 import lombok.Data;
 import lombok.experimental.Accessors;

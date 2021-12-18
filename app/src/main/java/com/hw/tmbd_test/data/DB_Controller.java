@@ -1,4 +1,4 @@
-package com.hw.tmbd_test;
+package com.hw.tmbd_test.data;
 
 import android.content.Context;
 
@@ -6,6 +6,7 @@ import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
+import com.hw.tmbd_test.callbacks.CallBack_getJsonArray;
 
 import org.json.JSONArray;
 import org.json.JSONException;

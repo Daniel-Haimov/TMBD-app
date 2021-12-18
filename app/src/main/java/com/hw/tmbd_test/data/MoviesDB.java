@@ -1,4 +1,4 @@
-package com.hw.tmbd_test;
+package com.hw.tmbd_test.data;
 
 import java.util.ArrayList;
 

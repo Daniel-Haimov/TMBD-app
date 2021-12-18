@@ -9,7 +9,7 @@
     android:elevation="8dp"
     app:cardElevation="8dp"
     android:layout_margin="10dp"
-    tools:context=".Activity_Main">
+    tools:context=".activities.Activity_Main">
 
     <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/movieActivity_BTN_back"

@@ -1,4 +1,4 @@
-package com.hw.tmbd_test;
+package com.hw.tmbd_test.activities;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.DefaultItemAnimator;
@@ -12,11 +12,12 @@ import android.os.Bundle;
 
 
 import com.google.android.gms.ads.AdRequest;
-import com.google.android.gms.ads.AdSize;
 import com.google.android.gms.ads.AdView;
-import com.google.android.gms.ads.MobileAds;
-import com.google.android.gms.ads.admanager.AdManagerAdView;
 import com.google.gson.Gson;
+import com.hw.tmbd_test.adapters.Adapter_Movie_List;
+import com.hw.tmbd_test.data.Movie;
+import com.hw.tmbd_test.data.MoviesDB;
+import com.hw.tmbd_test.R;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -46,9 +47,8 @@ public class Activity_Main extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         this.bundle = getIntent().getBundleExtra(getString(R.string.bundle_key));
 
-//        MobileAds.initialize(this, initializationStatus -> {
-//            initADS();
-//        });
+
+//        MobileAds.initialize(this, initializationStatus -> {});
 
         initADS();
 
@@ -65,9 +65,15 @@ public class Activity_Main extends AppCompatActivity {
 //        adView.setAdSizes(AdSize.BANNER);
 //        adView.setAdUnitId("/6499/example/banner");
 
+//        AdView mAdView = findViewById(R.id.adView);
+//        AdRequest adRequest = new AdRequest.Builder().build();
+//        mAdView.loadAd(adRequest);
+
+
         AdView mAdView = findViewById(R.id.adView);
         AdRequest adRequest = new AdRequest.Builder().build();
         mAdView.loadAd(adRequest);
+
     }
 
     private void adapter() {

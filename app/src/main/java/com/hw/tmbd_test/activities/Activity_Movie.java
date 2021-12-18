@@ -1,4 +1,4 @@
-package com.hw.tmbd_test;
+package com.hw.tmbd_test.activities;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.AppCompatButton;
@@ -10,11 +10,12 @@ import android.os.Bundle;
 import com.bumptech.glide.Glide;
 import com.google.android.material.textview.MaterialTextView;
 import com.google.gson.Gson;
+import com.hw.tmbd_test.data.Movie;
+import com.hw.tmbd_test.R;
 
 public class Activity_Movie extends AppCompatActivity {
 
 
-    private Bundle bundle;
     private Movie movie;
 
     private AppCompatImageView  movie_IMG_image         ;
@@ -33,7 +34,7 @@ public class Activity_Movie extends AppCompatActivity {
         setContentView(R.layout.activity_movie);
 
 
-        this.bundle = getIntent().getBundleExtra(getString(R.string.bundle_key));
+        Bundle bundle = getIntent().getBundleExtra(getString(R.string.bundle_key));
         this.movie = new Gson().fromJson(bundle.getString(getString(R.string.movie_key)), Movie.class);
 
         findViews();

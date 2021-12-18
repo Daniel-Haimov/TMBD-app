@@ -8,25 +8,29 @@
     <uses-permission android:name="android.permission.INTERNET" />
 
     <application
+        android:name=".App"
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
-        android:theme="@style/Theme.TMBD_test">
+        android:theme="@style/Theme.TMBD_test" >
 
         <meta-data
             android:name="com.google.android.gms.ads.APPLICATION_ID"
             android:value="@string/admob_app_id"/>
 
+
+
+
         <activity
-            android:name=".Activity_Movie"
+            android:name=".activities.Activity_Movie"
             android:exported="false" />
         <activity
-            android:name=".Activity_Main"
-            android:exported="false" />
+            android:name=".activities.Activity_Main"
+            android:exported="false"/>
         <activity
-            android:name=".Activity_Splash"
+            android:name=".activities.Activity_Splash"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
