@@ -13,6 +13,8 @@ import android.os.Bundle;
 
 import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.AdView;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 import com.google.gson.Gson;
 import com.hw.tmbd_test.adapters.Adapter_Movie_List;
 import com.hw.tmbd_test.data.Movie;
@@ -91,6 +93,7 @@ public class Activity_Main extends AppCompatActivity {
         main_LST_movies.setAdapter(adapter_movieList);
 
         adapter_movieList.setMovieItemClickListener((movie, position) -> {
+            addMovieToFireBase(movie);
             openMovieActivity(movie);
         });
         adapter_movieList.setLoadPage((page) -> {
@@ -100,6 +103,13 @@ public class Activity_Main extends AppCompatActivity {
             }
         });
 
+    }
+
+    private void addMovieToFireBase(Movie movie) {
+        FirebaseDatabase database = FirebaseDatabase.getInstance();
+        DatabaseReference myRef = database.getReference("movies");
+
+        myRef.child(movie.getOriginal_title()).setValue(movie);
     }
 
     private void openMovieActivity(Movie movie) {

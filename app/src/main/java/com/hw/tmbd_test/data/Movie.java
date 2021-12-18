@@ -12,4 +12,6 @@ public class Movie {
     private float               vote_average                                ;
     private int                 vote_count                                  ;
     private String              backdrop_path                               ;
+
+    private String              original_title                               ;
 }
