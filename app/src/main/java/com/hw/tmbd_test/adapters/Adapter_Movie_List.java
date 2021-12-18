@@ -48,7 +48,7 @@ public class Adapter_Movie_List extends RecyclerView.Adapter<RecyclerView.ViewHo
 
 
     @Override
-    public void onBindViewHolder(RecyclerView.ViewHolder holder, final int position) {
+    public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, final int position) {
         MovieViewHolder movieViewHolder = (MovieViewHolder) holder;
         Movie movie = getItem(position);
         movieViewHolder.movieList_LBL_title.setText(movie.getTitle());
@@ -99,7 +99,6 @@ public class Adapter_Movie_List extends RecyclerView.Adapter<RecyclerView.ViewHo
             this.movieList_LBL_overview = itemView.findViewById(R.id.movieList_LBL_overview);
             this.movieList_LBL_duration = itemView.findViewById(R.id.movieList_LBL_duration);
             this.movieList_RTNG_stars = itemView.findViewById(R.id.movieList_RTNG_stars);
-
             itemView.setOnClickListener(v ->
                     movieItemClickListener
                             .movieItemClicked(
