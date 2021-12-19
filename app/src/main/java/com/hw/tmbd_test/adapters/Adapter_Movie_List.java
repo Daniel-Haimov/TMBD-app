@@ -61,7 +61,7 @@ public class Adapter_Movie_List extends RecyclerView.Adapter<RecyclerView.ViewHo
                 .into(movieViewHolder.movieList_IMG_image);
         movieViewHolder.movieList_RTNG_stars.setRating(movie.getVote_average() / 2);
 
-        if (movies.size() - position > 5){
+        if (loadPage != null && movies.size() - position > 5){
             loadPage.loadPage(++page);
         }
     }

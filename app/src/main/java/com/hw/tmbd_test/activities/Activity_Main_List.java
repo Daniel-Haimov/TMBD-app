@@ -50,13 +50,13 @@ public class Activity_Main_List extends AppCompatActivity {
         setContentView(R.layout.activity_main_list);
         this.bundle = getIntent().getBundleExtra(getString(R.string.bundle_key));
 
+        main_LST_movies = findViewById(R.id.main_LST_movies);
 
 //        MobileAds.initialize(this, initializationStatus -> {});
 
         initADS();
 
         moviesDB = new MoviesDB();
-        main_LST_movies = findViewById(R.id.main_LST_movies);
 
         firstVersion();
 //        secondVersion();
@@ -111,6 +111,9 @@ public class Activity_Main_List extends AppCompatActivity {
         DatabaseReference myRef = database.getReference("movies");
 
         try{
+            //V1
+//            myRef.child(FirebaseAuth.getInstance().getCurrentUser().getUid()).child(movie.getOriginal_title()).setValue(movie);
+            //V2
             myRef.child(FirebaseAuth.getInstance().getCurrentUser().getUid()).child(movie.getOriginal_title()).setValue(movie);
         } catch (Exception e){
         }
