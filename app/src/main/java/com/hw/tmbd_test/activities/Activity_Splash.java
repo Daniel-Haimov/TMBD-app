@@ -112,7 +112,7 @@ public class Activity_Splash extends AppCompatActivity {
 //                                new AuthUI.IdpConfig.MicrosoftBuilder().build(),
 //                                new AuthUI.IdpConfig.YahooBuilder().build(),
 //                                new AuthUI.IdpConfig.AppleBuilder().build(),
-//                                new AuthUI.IdpConfig.EmailBuilder().build(),
+                                new AuthUI.IdpConfig.EmailBuilder().build(),
 //                                new AuthUI.IdpConfig.PhoneBuilder().setAllowedCountries(allowedCountries).build(),
                                 new AuthUI.IdpConfig.AnonymousBuilder().build()))
                         .build();
