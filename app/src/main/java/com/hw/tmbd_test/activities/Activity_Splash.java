@@ -49,7 +49,7 @@ public class Activity_Splash extends AppCompatActivity {
     };
 
     private void openHomeActivity() {
-        Intent intent = new Intent(this, Activity_Main.class);
+        Intent intent = new Intent(this, Activity_Main_List.class);
         Bundle bundle = new Bundle();
 
         MobileAds.initialize(this, initializationStatus -> {});

@@ -34,7 +34,7 @@ import java.net.URL;
 import java.util.ArrayList;
 import java.util.Locale;
 
-public class Activity_Main extends AppCompatActivity {
+public class Activity_Main_List extends AppCompatActivity {
 
     private RecyclerView main_LST_movies;
     private Bundle bundle;
@@ -47,7 +47,7 @@ public class Activity_Main extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        setContentView(R.layout.activity_main_list);
         this.bundle = getIntent().getBundleExtra(getString(R.string.bundle_key));
 
 

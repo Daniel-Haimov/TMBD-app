@@ -27,7 +27,7 @@
             android:name=".activities.Activity_Movie"
             android:exported="false" />
         <activity
-            android:name=".activities.Activity_Main"
+            android:name=".activities.Activity_Main_List"
             android:exported="false"/>
         <activity
             android:name=".activities.Activity_Splash"
