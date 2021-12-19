@@ -13,6 +13,7 @@ import android.os.Bundle;
 
 import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.AdView;
+import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.gson.Gson;
@@ -109,7 +110,10 @@ public class Activity_Main extends AppCompatActivity {
         FirebaseDatabase database = FirebaseDatabase.getInstance();
         DatabaseReference myRef = database.getReference("movies");
 
-        myRef.child(movie.getOriginal_title()).setValue(movie);
+        try{
+            myRef.child(FirebaseAuth.getInstance().getCurrentUser().getUid()).child(movie.getOriginal_title()).setValue(movie);
+        } catch (Exception e){
+        }
     }
 
     private void openMovieActivity(Movie movie) {

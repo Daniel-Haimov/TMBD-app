@@ -61,6 +61,7 @@ dependencies {
     implementation 'com.google.firebase:firebase-analytics'
     implementation 'com.google.firebase:firebase-database'
     implementation 'com.google.firebase:firebase-auth'
+    implementation 'com.google.android.gms:play-services-safetynet'
     implementation 'com.google.android.gms:play-services-ads:20.5.0'
 //    implementation 'com.google.android.gms:play-services-ads'
 
